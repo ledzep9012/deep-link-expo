@@ -10,6 +10,7 @@
 
         // Take the uri from the params
         var qs = decodeURIComponent(document.location.search);
+        console.log({ qs, url: document.location });
         if (qs) {
           const spl = qs.split("?")[0] + "?";
           const extractedRedirect = qs.replace(spl, "");
@@ -20,7 +21,7 @@
         // Update the link urls
         for (var i = 0; i < links.length; ++i) {
           links[i].href = baseUri;
-          links[i].textContent = links[i].href
+          links[i].textContent = links[i].href;
         }
 
         var redirectInterval = setInterval(function () {
