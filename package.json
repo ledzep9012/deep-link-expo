@@ -1,0 +1,8 @@
+{
+  "name": "deep-link-expo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ledzep9012/deep-link-expo.git",
+  "author": "Vyom <vyom0509@yahoo.com>",
+  "license": "MIT"
+}
