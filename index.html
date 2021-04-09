@@ -14,7 +14,7 @@
         if (qs) {
           const spl = qs.split("?")[0] + "?";
           let extractedRedirect = qs.replace(spl, "");
-          if (extractedRedirect.includes("releaseChannel")) {
+          if (extractedRedirect.includes("release-channel")) {
             const releaseChannel = extractedRedirect.split("&")[0] + "&";
             extractedRedirect = extractedRedirect.replace(releaseChannel, "");
           }
