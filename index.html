@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Redirect example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        var links = document.querySelectorAll("a");
+        var baseUri = "";
+
+        // Take the uri from the params
+        var qs = decodeURIComponent(document.location.search);
+        if (qs) {
+          const spl = qs.split("?")[0] + "?";
+          const extractedRedirect = qs.replace(spl, "");
+          console.log({ spl, extractedRedirect });
+          baseUri = extractedRedirect;
+        }
+
+        // Update the link urls
+        for (var i = 0; i < links.length; ++i) {
+          links[i].href = baseUri;
+          links[i].textContent = links[i].href
+        }
+
+        var redirectInterval = setInterval(function () {
+          var countdown = document.querySelector(".countdown");
+          var t = parseInt(countdown.innerText, 10);
+          t -= 1;
+
+          countdown.innerText = t;
+
+          if (t === 0) {
+            clearInterval(redirectInterval);
+            console.log(baseUri);
+            window.location.href = baseUri;
+          }
+        }, 1000);
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- <h2>Redirect example</h2>
+    <ul style="margin-left: 0; padding-left: 15px;">
+      <li>
+        <a href="exp://REPLACE_ME/">
+          Go back with no params
+        </a>
+      </li>
+      <li>
+        <a href="exp://REPLACE_ME/message=Hello%20World">
+          Pass back a message of "hello world"
+        </a>
+      </li>
+      <li>
+        <a href="exp://REPLACE_ME/authToken=23xbdbb21b3">
+          Pass back some fake auth token
+        </a>
+      </li>
+    </ul> -->
+
+    <p>
+      Redirecting automatically back to app in
+      <span class="countdown">5</span> seconds
+    </p>
+    <a id="link">open app</a>
+  </body>
+</html>
