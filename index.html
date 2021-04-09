@@ -5,7 +5,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function (event) {
-        var links = document.querySelectorAll("a");
+        var link = document.querySelector("link");
         var baseUri = "";
 
         // Take the uri from the params
@@ -23,10 +23,7 @@
         }
 
         // Update the link urls
-        for (var i = 0; i < links.length; ++i) {
-          links[i].href = baseUri;
-          links[i].textContent = links[i].href;
-        }
+        link.href = baseUri;
 
         var redirectInterval = setInterval(function () {
           var countdown = document.querySelector(".countdown");
@@ -38,7 +35,7 @@
           if (t === 0) {
             clearInterval(redirectInterval);
             console.log(baseUri);
-            window.location.href = baseUri;
+            link.click();
           }
         }, 1000);
       });
@@ -46,29 +43,10 @@
   </head>
 
   <body>
-    <!-- <h2>Redirect example</h2>
-    <ul style="margin-left: 0; padding-left: 15px;">
-      <li>
-        <a href="exp://REPLACE_ME/">
-          Go back with no params
-        </a>
-      </li>
-      <li>
-        <a href="exp://REPLACE_ME/message=Hello%20World">
-          Pass back a message of "hello world"
-        </a>
-      </li>
-      <li>
-        <a href="exp://REPLACE_ME/authToken=23xbdbb21b3">
-          Pass back some fake auth token
-        </a>
-      </li>
-    </ul> -->
-
     <p>
       Redirecting automatically back to app in
       <span class="countdown">5</span> seconds
     </p>
-    <a id="link">open app</a>
+    <a id="link">Open App</a>
   </body>
 </html>
