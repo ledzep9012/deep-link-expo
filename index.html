@@ -13,7 +13,11 @@
         console.log({ qs, url: document.location });
         if (qs) {
           const spl = qs.split("?")[0] + "?";
-          const extractedRedirect = qs.replace(spl, "");
+          let extractedRedirect = qs.replace(spl, "");
+          if (extractedRedirect.includes("releaseChannel")) {
+            const releaseChannel = extractedRedirect.split("&")[0] + "&";
+            extractedRedirect = extractedRedirect.replace(releaseChannel, "");
+          }
           console.log({ spl, extractedRedirect });
           baseUri = extractedRedirect;
         }
