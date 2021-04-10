@@ -5,10 +5,32 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function (event) {
+        function removeURLParameter(url, parameter) {
+          //prefer to use l.search if you have a location/link object
+          var urlparts = url.split("?");
+          if (urlparts.length >= 2) {
+            var prefix = encodeURIComponent(parameter) + "=";
+            var pars = urlparts[1].split(/[&;]/g);
+
+            //reverse iteration as may be destructive
+            for (var i = pars.length; i-- > 0; ) {
+              //idiom for string.startsWith
+              if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+                pars.splice(i, 1);
+              }
+            }
+
+            url = urlparts[0] + "?" + pars.join("&");
+            return url;
+          } else {
+            return url;
+          }
+        }
+
         var link = document.getElementById("link");
 
         var baseUri = "";
-
+        const url = document.location.search;
         // Take the uri from the params
         var qs = decodeURIComponent(document.location.search);
         console.log({ qs, url: document.location });
@@ -16,10 +38,15 @@
           const spl = qs.split("?")[0] + "?";
           let extractedRedirect = qs.replace(spl, "");
           if (extractedRedirect.includes("release-channel")) {
-            const releaseChannel = extractedRedirect.split("&")[0] + "&";
-            extractedRedirect = extractedRedirect.replace(releaseChannel, "");
+            const removed = removeURLParameter(
+              extractedRedirect,
+              "release-channel"
+            );
+            console.log({ removed });
+
+            extractedRedirect = removed;
           }
-          console.log({ spl, extractedRedirect });
+
           baseUri = extractedRedirect;
         }
 
@@ -36,7 +63,7 @@
           if (t === 0) {
             clearInterval(redirectInterval);
             console.log(baseUri);
-            link.click();
+            // link.click();
           }
         }, 1000);
       });
