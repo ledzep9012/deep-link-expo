@@ -53,7 +53,7 @@
         }
 
         // Update the link urls
-        link.href = extractedRedirect;
+        link.href = baseUri;
 
         var redirectInterval = setInterval(function () {
           var countdown = document.querySelector(".countdown");
@@ -64,7 +64,7 @@
 
           if (t === 0) {
             clearInterval(redirectInterval);
-            console.log(extractedRedirect);
+            console.log(baseUri);
             link.click();
           }
         }, 1000);
