@@ -5,28 +5,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function (event) {
-        function removeURLParameter(url, parameter) {
-          //prefer to use l.search if you have a location/link object
-          var urlparts = url.split("?");
-          if (urlparts.length >= 2) {
-            var prefix = encodeURIComponent(parameter) + "=";
-            var pars = urlparts[1].split(/[&;]/g);
-
-            //reverse iteration as may be destructive
-            for (var i = pars.length; i-- > 0; ) {
-              //idiom for string.startsWith
-              if (pars[i].lastIndexOf(prefix, 0) !== -1) {
-                pars.splice(i, 1);
-              }
-            }
-
-            url = urlparts[0] + "?" + pars.join("&");
-            return url;
-          } else {
-            return url;
-          }
-        }
-
         var link = document.getElementById("link");
 
         var baseUri = "";
@@ -37,46 +15,32 @@
         if (qs) {
           const spl = qs.split("?")[0] + "?";
           let extractedRedirect = qs.replace(spl, "");
-
-          /* if (extractedRedirect.includes("release-channel")) {
-            const removed = removeURLParameter(
-              extractedRedirect,
-              "release-channel"
-            );
-            console.log({ removed });
-
-            extractedRedirect = removed;
-          }
-
-          */
           baseUri = extractedRedirect;
         }
-
-        // Update the link urls
-        link.href = baseUri;
-
-        var redirectInterval = setInterval(function () {
+        if (baseUri) {
+          // Update the link urls
+          link.href = baseUri;
+          window.location = baseUri;
+        }
+        const redirectInterval = setInterval(() => {
           var countdown = document.querySelector(".countdown");
           var t = parseInt(countdown.innerText, 10);
           t -= 1;
-
           countdown.innerText = t;
-
-          if (t === 0) {
-            clearInterval(redirectInterval);
-            console.log(baseUri);
-            link.click();
-          }
         }, 1000);
+        setTimeout(function () {
+          window.location = "https://routes.life";
+          clearInterval(redirectInterval);
+        }, 5000);
       });
     </script>
   </head>
 
   <body>
     <p>
-      Redirecting automatically back to app in
+      Redirecting in
       <span class="countdown">5</span> seconds
     </p>
-    <a id="link">Open App</a>
+    <a id="link"></a>
   </body>
 </html>
