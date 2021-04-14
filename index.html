@@ -10,11 +10,14 @@
         var baseUri = "";
         const url = new URL(window.location);
         const linkingUrl = url.searchParams.get("linkingUrl");
+        console.log({ linkingUrl });
         if (linkingUrl) {
           const releaseChannel = url.searchParams.get("release-channel");
+          console.log({ releaseChannel });
           const deeplink = releaseChannel
-            ? linkingUrl + `&${releaseChannel}`
+            ? linkingUrl + `&release-channel=${releaseChannel}`
             : linkingUrl;
+          console.log({ deeplink });
           link.href = deeplink;
           window.location = deeplink;
         }
