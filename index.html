@@ -9,9 +9,10 @@
 
         var baseUri = "";
         const url = new URL(window.location);
-        const linkingUrl = url.searchParams.get("linkingUrl");
+        let linkingUrl = url.searchParams.get("linkingUrl");
         console.log({ linkingUrl });
         if (linkingUrl) {
+          linkingUrl = decodeURIComponent(linkingUrl);
           const releaseChannel = url.searchParams.get("release-channel");
           console.log({ releaseChannel });
           const deeplink = releaseChannel
