@@ -12,6 +12,7 @@
         // Take the uri from the params
         var qs = decodeURIComponent(document.location.search);
         if (qs) {
+          console.log({split: qs.split("?"), qs})
           const spl = qs.split("?")[0] + "?";
           console.log({spl});
           let extractedRedirect = qs.replace(spl, "");
