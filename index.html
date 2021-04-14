@@ -11,9 +11,12 @@
         const url = new URL(window.location);
         const linkingUrl = url.searchParams.get("linkingUrl");
         if (linkingUrl) {
-          console.log({ rc: url.searchParams.get("release-channel") });
-          link.href = linkingUrl;
-          window.location = linkingUrl;
+          const releaseChannel = url.searchParams.get("release-channel");
+          const deeplink = releaseChannel
+            ? linkingUrl + `&${releaseChannel}`
+            : linkingUrl;
+          link.href = deeplink;
+          window.location = deeplink;
         }
 
         const redirectInterval = setInterval(() => {
@@ -25,7 +28,6 @@
 
         setTimeout(function () {
           window.location = "https://routes.life";
-          console.log("Route to Home page now");
           clearInterval(redirectInterval);
         }, 5000);
       });
