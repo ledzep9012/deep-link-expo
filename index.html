@@ -8,31 +8,24 @@
         var link = document.getElementById("link");
 
         var baseUri = "";
-        const url = document.location.search;
-        // Take the uri from the params
-        var qs = decodeURIComponent(document.location.search);
-        if (qs) {
-          console.log({split: qs.split("?"), qs})
-          const spl = qs.split("?")[0] + "?";
-          console.log({spl});
-          let extractedRedirect = qs.replace(spl, "");
-          console.log({extractedRedirect});
-          baseUri = extractedRedirect;
+        const url = new URL(window.location);
+        const linkingUrl = url.searchParams.get("linkingUrl");
+        if (linkingUrl) {
+          console.log({ rc: url.searchParams.get("release-channel") });
+          link.href = linkingUrl;
+          window.location = linkingUrl;
         }
-        if (baseUri) {
-          // Update the link urls
-          link.href = baseUri;
-          // window.location = baseUri;
-        }
+
         const redirectInterval = setInterval(() => {
           var countdown = document.querySelector(".countdown");
           var t = parseInt(countdown.innerText, 10);
           t -= 1;
           countdown.innerText = t;
         }, 1000);
+
         setTimeout(function () {
-          // window.location = "https://routes.life";
-          console.log('Route to Home page now')
+          window.location = "https://routes.life";
+          console.log("Route to Home page now");
           clearInterval(redirectInterval);
         }, 5000);
       });
