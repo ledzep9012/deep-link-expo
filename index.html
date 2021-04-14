@@ -11,16 +11,17 @@
         const url = document.location.search;
         // Take the uri from the params
         var qs = decodeURIComponent(document.location.search);
-        console.log({ qs, url: document.location });
         if (qs) {
           const spl = qs.split("?")[0] + "?";
+          console.log({spl});
           let extractedRedirect = qs.replace(spl, "");
+          console.log({extractedRedirect});
           baseUri = extractedRedirect;
         }
         if (baseUri) {
           // Update the link urls
           link.href = baseUri;
-          window.location = baseUri;
+          // window.location = baseUri;
         }
         const redirectInterval = setInterval(() => {
           var countdown = document.querySelector(".countdown");
@@ -29,7 +30,8 @@
           countdown.innerText = t;
         }, 1000);
         setTimeout(function () {
-          window.location = "https://routes.life";
+          // window.location = "https://routes.life";
+          console.log('Route to Home page now')
           clearInterval(redirectInterval);
         }, 5000);
       });
@@ -41,6 +43,6 @@
       Redirecting in
       <span class="countdown">5</span> seconds
     </p>
-    <a id="link"></a>
+    <a id="link">Open App</a>
   </body>
 </html>
